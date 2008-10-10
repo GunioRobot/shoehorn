@@ -1,0 +1,47 @@
+Shoehorn is written in Shoes (thanks _why) by millionmonkey http://twitter.com/millionmonkey
+
+Shoehorn is a MP3 Player
+
+Shoehorn owes its existence to Teeny-Weeny MP3 player written by Satoshi Asakawa 
+
+Shoehorn has only been tested in osx 10.5.5
+
+Shoehorn will create a playlist of MP3 files for a given directory. Showhorn extracts the path from a yaml file and then builds the playlist.
+
+I've included a directory with 2 MP3 files in it. The MP3 files where created using Archaeopteryx written by Giles Bowket, a fork by Matt Constantine, Midi Patchbay and Garageband.
+
+temple.garageband.mp3 - generated from Giles' temple.rb
+piano.garageband.mp3 - generated from Matt's Content Free Music Generator
+
+I don't know music but Archaeopteryx is very cool. Like any tool very useful in the hands of those who know what they are doing. For the rest of us Archaeopteryx makes music generation using Ruby very accessible.
+
+
+required files:
+--------------
+shoehorn.rb
+shoehorn.yaml
+
+
+optional files:
+--------------
+music/piano.garageband.mp3  
+msuic/temple.garageband.mp3
+    
+
+Using Shoehorn
+--------------
+
+1. Add your path to your MP3 files in the yaml file-  no nesting. See the included music directory for an example
+2. Start Shoes
+3. Load shoehorn.rb
+2. Select an item from the ListBox
+3. Click Play 
+4. Once a MP3 is playing, you can click Pause or Stop. 
+
+TODO: 
+--------------
+  Display ID3 tag info for the current MP3. 
+  Testing
+  Exception Handling
+  Refactoring when I know what I am doing 
+  
