@@ -2,12 +2,11 @@
 #  made from shoes - thanks _why
 #  influenced by Satoshi Asakawa thanks Satoshi
 
-
 require 'yaml'  
 
-
-Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player', :resizable => false do
+Shoes.app :width => 350, :height => 140, :title => 'Shoehorn the MP3 Player', :resizable => false do
   background silver.to_s..gray.to_s, :angle => 60
+
   
   def read_yaml filename
     begin
@@ -20,7 +19,7 @@ Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player', :r
   def get_file_list path
     Dir.chdir(path)
     mp3_list =  Dir.entries(".")  
-    mp3_list.delete('.')
+    mp3_list[0] = "Select Song"
     mp3_list.delete('..')
     mp3_list
   end
@@ -28,11 +27,15 @@ Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player', :r
   def display_list file_list  
     stack do
       background black.to_s..silver.to_s, :angle => 30    
-      list_box :width => 390, :items => file_list, :height => 30 do |file| 
-        @mp3_file = file.text 
-        @vid = video(@mp3_file); @vid.hide
-      end
-    end 
+      list_box :width => 350, :items => file_list, :height => 30 do |file| 
+          @vid.stop if ! @vid.nil?
+          @mp3_file = file.text 
+          @vid = video(@mp3_file);
+          @vid.hide  
+          update_time
+                           
+      end 
+    end
   end
   
   def display_controls
@@ -51,8 +54,12 @@ Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player', :r
   def display_timer
     @l = para '', :stroke => firebrick, :left => 0, :top => 70
     animate do
-      @l.replace strong "Remaining: #{@m3_file} #{(@vid.length.to_i - @vid.time.to_i) / 1000}\nElapsed:  #{@vid.time.to_i / 1000} seconds "  if @mp3_file
+      update_timer
     end
+  end
+  
+  def update_timer
+          @l.replace strong "Remaining: #{@m3_file} #{(@vid.length.to_i - @vid.time.to_i) / 1000} seconds\nElapsed:  #{@vid.time.to_i / 1000} seconds "  if @mp3_file
   end
   
   # set a path to the music files
@@ -64,7 +71,7 @@ Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player', :r
   
   #create display  Shoes ListBox populating it with the list of files
   display_list file_list
-  
+
   #display control links play pause stop
   display_controls
   
