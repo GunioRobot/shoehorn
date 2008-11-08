@@ -6,7 +6,7 @@
 require 'yaml'  
 
 
-Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player' do
+Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player', :resizable => false do
   background silver.to_s..gray.to_s, :angle => 60
   
   def read_yaml filename
@@ -28,7 +28,7 @@ Shoes.app :width => 400, :height => 140, :title => 'Shoehorn the MP3 Player' do
   def display_list file_list  
     stack do
       background black.to_s..silver.to_s, :angle => 30    
-       list_box :width => 390, :items => file_list do |file|     
+      list_box :width => 390, :items => file_list, :height => 30 do |file| 
         @mp3_file = file.text 
         @vid = video(@mp3_file); @vid.hide
       end
